@@ -10,7 +10,7 @@ class Markview < Sinatra::Base
   set :public, "#{dir}/markview/public"
   set :static, true
 
-  before do
+  configure do
     @@markup = ARGV[0] ||= Dir.glob("README*")[0]
     unless File.file?(@@markup)
       raise LoadError, "Failed to open document. Please specify a file."; exit!
@@ -50,6 +50,7 @@ class Markview < Sinatra::Base
 
 	get '/edit' do
 		@markdown = File.read(@@markup)
+		p @@markup
     ({:error => false, :data => "<textarea id='editbox'>#{@markdown}</textarea>"}).to_json
   end
 
