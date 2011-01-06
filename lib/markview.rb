@@ -19,7 +19,10 @@ class Markview < Sinatra::Base
 
   # Renders the html using GitHub::Markup
   def self.render
-    GitHub::Markup.render(@@markup, File.read(@@markup))
+		#do loop for rendering all the files
+		@@markup.each do |file|
+			GitHub::Markup.render(file[0], File.read(file[0])) unless file.empty?
+		end
   end
 
   get '/' do
@@ -27,6 +30,15 @@ class Markview < Sinatra::Base
     @title = File.basename(@@markup)
     erb :base
   end
+
+	get '/all' do
+		@@markup = Dir.glob("*.md"),
+			Dir.glob("*.mdown"), 
+			Dir.glob("*.markdown")
+		@markdown = Markview.render
+		@title = File.basename(@@markup)
+		erb :all
+	end
 
   get '/edit' do
     @markdown = File.read(@@markup)
