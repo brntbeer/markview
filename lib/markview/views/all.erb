@@ -1,0 +1,7 @@
+<div id="markview-all">
+	<% @files.each do |file| %>
+		<div class="markview">
+			<a href="/file/<%=file[0]%>"><%=file[0]%></a>
+		</div>
+	<% end %>
+</div>

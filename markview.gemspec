@@ -17,6 +17,7 @@ Gem::Specification.new do |gemspec|
    	'lib/markview/views/base.erb',
    	'lib/markview/views/layout.erb',
    	'lib/markview/views/edit.erb',
+		'lib/markview/views/all.erb',
    	'README.md',
 		'test/test_helper.rb',
    	'test/render_test.rb'
