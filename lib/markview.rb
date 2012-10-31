@@ -12,8 +12,10 @@ class Markview < Sinatra::Base
 
   configure do
     @@markup = ARGV[0] ||= Dir.glob("README*")[0]
-    unless File.file?(@@markup)
-      raise LoadError, "Failed to open document. Please specify a file."; exit!
+    if !@@markup.nil? && !File.file?(@@markup)
+      File.new(@@markup, "w+")
+    elsif !File.file?(@@markup)
+      raise LoadError, "Failed to find suitable file in current working directory!"; exit!
     end
   end
 
